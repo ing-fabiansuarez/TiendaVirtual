@@ -8,4 +8,13 @@
     <string name="msg_description">Digite la descripcion</string>
     <string name="msg_price">Digite Precio</string>
     <string name="digite_la_url_de_la_imagen">Digite la Url de la imagen</string>
+    <string name="save_information">Guardar Información</string>
+    <string name="product">Producto</string>
+    <string name="welcome">Bienvenido Fabian!</string>
+    <string name="por_favor_ingrese_la_url_de_la_imagen">Por favor ingrese la URL de la imagen</string>
+    <string name="por_favor_ingrese_el_precio">Por favor ingrese el precio</string>
+    <string name="por_favor_ingrese_la_descripcion">Por favor ingrese la descripcion</string>
+    <string name="por_favor_ingrese_el_nombre">Por favor ingrese el nombre</string>
+    <string name="categories">Categories</string>
+    <string name="products">Products</string>
 </resources>

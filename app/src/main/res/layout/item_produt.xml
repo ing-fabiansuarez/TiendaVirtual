@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
@@ -17,10 +17,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <!-- Media -->
             <ImageView
+                android:id="@+id/iv_product_item"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:scaleType="fitCenter"
@@ -29,11 +31,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
+                    android:id="@+id/tv_name_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Computador Asus 8RAM"
@@ -47,9 +50,10 @@
                      android:textColor="?android:attr/textColorSecondary"
                      />-->
                 <TextView
+                    android:id="@+id/tv_price_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+
                     android:text="$5.000.000,00"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />

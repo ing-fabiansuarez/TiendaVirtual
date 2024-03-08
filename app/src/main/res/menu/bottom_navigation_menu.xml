@@ -5,21 +5,11 @@
         android:id="@+id/item_1"
         android:enabled="true"
         android:icon="@drawable/ic_add_home"
-        android:title="Holi" />
+        android:title="@string/products" />
     <item
         android:id="@+id/item_2"
         android:enabled="true"
         android:icon="@drawable/ic_add_home"
-        android:title="Holi" />
-    <item
-        android:id="@+id/item_3"
-        android:enabled="true"
-        android:icon="@drawable/ic_add_home"
-        android:title="Holi" />
-    <item
-        android:id="@+id/item_4"
-        android:enabled="true"
-        android:icon="@drawable/ic_add_home"
-        android:title="Holi" />
+        android:title="@string/categories" />
 
 </menu>
