@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TiendaVirtual</string>
+    <string name="name">Nombre</string>
+    <string name="msg_name">Digite el nombre</string>
+    <string name="description">Descripción</string>
+    <string name="price">Precio</string>
+    <string name="url_imagen">Url imagen</string>
+    <string name="msg_description">Digite la descripcion</string>
+    <string name="msg_price">Digite Precio</string>
+    <string name="digite_la_url_de_la_imagen">Digite la Url de la imagen</string>
 </resources>
