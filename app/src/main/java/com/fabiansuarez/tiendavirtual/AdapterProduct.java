@@ -3,10 +3,13 @@ package com.fabiansuarez.tiendavirtual;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,16 +42,21 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView nameProduct, priceProduct;
+        private ImageView ivProduct;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameProduct = itemView.findViewById(R.id.tv_name_product);
             priceProduct = itemView.findViewById(R.id.tv_price_product);
+            ivProduct = itemView.findViewById(R.id.iv_product_item);
         }
 
         public void associate(Product myProduct) {
             nameProduct.setText(myProduct.getName());
             priceProduct.setText(myProduct.getPrice().toString());
+            Picasso.get().load(myProduct.getUrlImage())
+                     // Establece la imagen genérica en caso de error
+                    .into(ivProduct);
         }
     }
 }

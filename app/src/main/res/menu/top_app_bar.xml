@@ -4,9 +4,8 @@
 
 
     <item
-        android:id="@+id/more"
-        android:title="holi"
-        android:contentDescription="descrip"
+        android:id="@+id/add_product"
+        android:title="Agregar Producto"
         app:showAsAction="never" />
 
 </menu>

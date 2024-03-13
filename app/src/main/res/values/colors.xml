@@ -13,7 +13,7 @@
     <color name="md_theme_light_onSecondaryContainer">#221B00</color>
     <color name="md_theme_light_tertiary">#9A3293</color>
     <color name="md_theme_light_onTertiary">#FFFFFF</color>
-    <color name="md_theme_light_tertiaryContainer">#FFD7F4</color>
+    <color name="md_theme_light_tertiaryContainer">#9E0B75</color>
     <color name="md_theme_light_onTertiaryContainer">#380037</color>
     <color name="md_theme_light_error">#BA1A1A</color>
     <color name="md_theme_light_errorContainer">#FFDAD6</color>

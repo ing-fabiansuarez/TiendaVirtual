@@ -12,10 +12,9 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+            android:id="@+id/topAppBar_form_add_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/md_theme_light_primaryContainer"
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/product" />

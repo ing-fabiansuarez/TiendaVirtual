@@ -1,8 +1,10 @@
 package com.fabiansuarez.tiendavirtual;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,11 +14,13 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class FormProductActivity extends AppCompatActivity {
 
-    TextInputLayout nameTextField;
-    TextInputLayout descriptionTextField;
-    TextInputLayout priceTextField;
-    TextInputLayout imageUrlTextField;
-    Button saveButton;
+    private TextInputLayout nameTextField;
+
+    private TextInputLayout descriptionTextField;
+    private TextInputLayout priceTextField;
+    private TextInputLayout imageUrlTextField;
+    private Button saveButton;
+    private Toolbar topAppBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +32,21 @@ public class FormProductActivity extends AppCompatActivity {
         priceTextField = findViewById(R.id.et_price_product);
         imageUrlTextField = findViewById(R.id.et_image_product);
         saveButton = findViewById(R.id.btn_save_information);
+        topAppBar = findViewById(R.id.topAppBar_form_add_product);
+
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (validateForm()) {
                     Toast.makeText(FormProductActivity.this, "SE GUARDO LA INFORMACION", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
 

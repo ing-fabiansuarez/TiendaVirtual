@@ -8,10 +8,11 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
-        style="?attr/materialCardViewFilledStyle"
+        style="@style/CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="4dp">
 
         <LinearLayout
@@ -53,10 +54,16 @@
                     android:id="@+id/tv_price_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:text="$5.000.000,00"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
+
+                <Button
+                    android:id="@+id/button"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Agregar" />
 
             </LinearLayout>
 
