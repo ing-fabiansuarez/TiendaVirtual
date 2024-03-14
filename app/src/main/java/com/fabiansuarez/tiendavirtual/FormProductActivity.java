@@ -15,7 +15,6 @@ import com.google.android.material.textfield.TextInputLayout;
 public class FormProductActivity extends AppCompatActivity {
 
     private TextInputLayout nameTextField;
-
     private TextInputLayout descriptionTextField;
     private TextInputLayout priceTextField;
     private TextInputLayout imageUrlTextField;
