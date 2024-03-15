@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.carousel.CarouselLayoutManager;
 import com.squareup.picasso.Picasso;
@@ -28,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private User userSession = new User();
     private RecyclerView rvProducts;
 
+    private ArrayList<SlideModel> imageList = new ArrayList<>();
+    private ImageSlider imageSlider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +41,21 @@ public class MainActivity extends AppCompatActivity {
 
         loadFakeData();
         rvProducts = findViewById(R.id.rv_products);
+        imageSlider = findViewById(R.id.image_slider_home);
+
+        imageList.add(new SlideModel("https://bit.ly/2YoJ77H", "The animal population decreased by 58 percent in 42 years.",null));
+        imageList.add(new SlideModel("https://bit.ly/2BteuF2", "Elephants and tigers may become extinct.",null));
+        imageList.add(new SlideModel("https://bit.ly/3fLJf72", "And people do that.",null));
+        imageSlider.setImageList(imageList,ScaleTypes.FIT);
         AdapterProduct adapterProduct = new AdapterProduct(productsList);
+        adapterProduct.setOnItemClickListener(new AdapterProduct.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product myProduct, int position) {
+                Intent myIntent = new Intent(MainActivity.this, DetailProductActivity.class);
+                myIntent.putExtra("product", myProduct);
+                startActivity(myIntent);
+            }
+        });
         rvProducts.setAdapter(adapterProduct);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

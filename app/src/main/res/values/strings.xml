@@ -17,4 +17,6 @@
     <string name="por_favor_ingrese_el_nombre">Por favor ingrese el nombre</string>
     <string name="categories">Categories</string>
     <string name="products">Products</string>
+    <string name="producto">Producto</string>
+    <string name="agregar_al_carrito">Agregar al Carrito</string>
 </resources>

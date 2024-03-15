@@ -16,9 +16,15 @@ import java.util.ArrayList;
 public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHolder> {
 
     private ArrayList<Product> listadoObjetos;
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public AdapterProduct(ArrayList<Product> listadoObjetos) {
         this.listadoObjetos = listadoObjetos;
+        this.onItemClickListener = null;
     }
 
     @NonNull
@@ -39,7 +45,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
         return listadoObjetos.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView nameProduct, priceProduct;
         private ImageView ivProduct;
@@ -55,8 +61,23 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
             nameProduct.setText(myProduct.getName());
             priceProduct.setText(myProduct.getPrice().toString());
             Picasso.get().load(myProduct.getUrlImage())
-                     // Establece la imagen genérica en caso de error
+                    // Establece la imagen genérica en caso de error
                     .into(ivProduct);
+
+            if (onItemClickListener != null) {
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onItemClickListener.onItemClick(myProduct, getAdapterPosition());
+                    }
+                });
+            }
+
         }
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(Product myProduct, int position);
     }
 }

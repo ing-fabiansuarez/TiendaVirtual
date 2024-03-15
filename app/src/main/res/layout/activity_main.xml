@@ -39,11 +39,38 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_products"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp" />
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:cardCornerRadius="32dp"
+                android:layout_margin="8dp"
+                app:cardElevation="16dp"
+                android:layout_height="wrap_content">
+
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:id="@+id/image_slider_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    app:iss_auto_cycle="true"
+                    app:iss_delay="2000"
+                    app:iss_period="2000"
+                    app:iss_text_align="CENTER" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_products"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 
