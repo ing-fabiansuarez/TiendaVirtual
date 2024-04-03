@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.add_product) {
                     startActivity(new Intent(MainActivity.this, FormProductActivity.class));
                     return true;
+                }else if(item.getItemId() == R.id.item_category){
+                    startActivity(new Intent(MainActivity.this, CategoryActivity.class));
+                    return true;
                 }
                 return false;
             }
