@@ -2,6 +2,7 @@ package com.fabiansuarez.tiendavirtual;
 
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,11 @@ import java.util.List;
 public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHolder> {
 
     private List<Category> listSet;
+
+    public void setListSet(List<Category> listSet) {
+        this.listSet = listSet;
+        notifyDataSetChanged();
+    }
 
     public AdapterCategory(List<Category> listSet) {
         this.listSet = listSet;
@@ -41,7 +47,12 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
 
         public void link(Category category) {
             mTextViewNameCategory.setText(category.getName());
-            mCardViewColor.setCardBackgroundColor(Color.parseColor(category.getColor()));
+            try{
+                mCardViewColor.setCardBackgroundColor(Color.parseColor(category.getColor()));
+            }catch (Exception e){
+                Log.e("error", e.getMessage());
+            }
+
             Picasso
                     .get()
                     .load(category.getIconImage())

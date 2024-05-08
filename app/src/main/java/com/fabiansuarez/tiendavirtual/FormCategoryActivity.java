@@ -7,13 +7,18 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -34,17 +39,32 @@ public class FormCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validateForm()) {
-                    Toast.makeText(FormCategoryActivity.this, "SE GUARDO LA INFORMACION", Toast.LENGTH_SHORT).show();
-                }
+                    String name = nameTextField.getEditText().getText().toString().trim();
+                    btnColorPicker.getBackground();
+                    Category myCategory = new Category(name,btnColorPicker.getText().toString(),"no image");
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Categories").add(myCategory).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(FormCategoryActivity.this, "SE GUARDO LA INFORMACION", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else{
+                                Toast.makeText(FormCategoryActivity.this, "ERROR DE SERVIDOR", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                       }
             }
         });
         btnColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AmbilWarnaDialog dialog = new AmbilWarnaDialog(FormCategoryActivity.this, Color.BLUE, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                AmbilWarnaDialog dialog = new AmbilWarnaDialog(FormCategoryActivity.this, Color.WHITE, new AmbilWarnaDialog.OnAmbilWarnaListener() {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
-                        // color is the color selected by the user.
+                        btnColorPicker.setBackgroundColor(color);
+                        btnColorPicker.setText(String.format("#%06X", color & 0x00FFFFFF));
                     }
 
                     @Override

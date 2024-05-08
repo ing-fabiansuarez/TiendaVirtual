@@ -1,5 +1,6 @@
 package com.fabiansuarez.tiendavirtual;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,8 +20,13 @@ import android.widget.Toast;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.carousel.CarouselLayoutManager;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView userImageProfil;
 
     private RecyclerView rvProducts;
+    private AdapterProduct adapterProduct;
 
 
     @Override
@@ -42,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadFakeData();
+
         userImageProfil = findViewById(R.id.iv_profile_home_user);
         Picasso.get().load(userSession.getUrlImageProfil()).into(userImageProfil);
         rvProducts = findViewById(R.id.rv_products);
@@ -55,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         imageList.add(new SlideModel("https://www.movilexito.com/sites/default/files/2021-08/V3_Paqu_LP_Movil_Recibe50_770x315_030821.jpg", "Elephants and tigers may become extinct.",null));
         imageList.add(new SlideModel("https://vtex-resources.s3.amazonaws.com/landings/2024/marzo/landing-dia-redondo/images/mobile/banner.jpg", "And people do that.",null));
         imageSlider.setImageList(imageList,ScaleTypes.FIT);
-        AdapterProduct adapterProduct = new AdapterProduct(productsList);
+        adapterProduct = new AdapterProduct(productsList);
         adapterProduct.setOnItemClickListener(new AdapterProduct.OnItemClickListener() {
             @Override
             public void onItemClick(Product myProduct, int position) {
@@ -98,45 +106,33 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadFakeData();
+    }
 
     private void loadFakeData() {
 
-        Product product1 = new Product("Laptop", "Potente laptop para trabajo y entretenimiento", 1200.0, "https://http2.mlstatic.com/D_NQ_NP_793921-MLM50274201387_062022-O.webp");
-        Product product2 = new Product("Teléfono", "Teléfono inteligente de última generación", 800.0, "https://exitocol.vtexassets.com/arquivos/ids/19479809/Celular-TECNO-MOBILE-Tecno-Spark-10PRO-256-GB-Blanco-3371669_c.jpg?v=638275963829800000");
-        Product product3 = new Product("Televisor", "Televisor LED de 55 pulgadas con resolución 4K", 1500.0, "https://www.shutterstock.com/image-illustration/perspective-view-television-tv-computer-260nw-671716426.jpg");
-        Product product4 = new Product("Auriculares", "Auriculares inalámbricos con cancelación de ruido", 200.0, "https://static.vecteezy.com/system/resources/previews/009/302/605/non_2x/headphones-clipart-design-illustartion-free-png.png");
-        Product product5 = new Product("Tablet", "Tablet ligera y compacta para leer y navegar por Internet", 300.0, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh3Y3GoUjPCzopgn4KNTArm6VhSGWxqu9JSw&usqp=CAU");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        productsList.add(product1);
-        productsList.add(product2);
-        productsList.add(product3);
-        productsList.add(product4);
-        productsList.add(product5);
-        productsList.add(product1);
-        productsList.add(product2);
-        productsList.add(product3);
-        productsList.add(product4);
-        productsList.add(product5);
-        productsList.add(product1);
-        productsList.add(product2);
-        productsList.add(product3);
-        productsList.add(product4);
-        productsList.add(product5);
-        productsList.add(product1);
-        productsList.add(product2);
-        productsList.add(product3);
-        productsList.add(product4);
-        productsList.add(product5);
-        productsList.add(product1);
-        productsList.add(product2);
-        productsList.add(product3);
-        productsList.add(product4);
-        productsList.add(product5);
-        productsList.add(product1);
-        productsList.add(product2);
-        productsList.add(product3);
-        productsList.add(product4);
-        productsList.add(product5);
+        db.collection("Products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    productsList.clear();
+                    for(DocumentSnapshot documentSnapshot: task.getResult()){
+                        Product trappedObject = documentSnapshot.toObject(Product.class);
+                        productsList.add(trappedObject);
+                    }
+                    adapterProduct.setListadoObjetos(productsList);
+                    Log.i("misproductos",productsList.toString());
+                }else{
+                    Toast.makeText(MainActivity.this, "ERROR CARGANDO LOS PRODUCTOS", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         //Cargue de informacion de session
         userSession.setName("Fabian");

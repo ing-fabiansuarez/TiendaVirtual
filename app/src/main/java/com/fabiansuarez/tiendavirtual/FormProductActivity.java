@@ -1,16 +1,23 @@
 package com.fabiansuarez.tiendavirtual;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.ProxyFileDescriptorCallback;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class FormProductActivity extends AppCompatActivity {
 
@@ -38,13 +45,33 @@ public class FormProductActivity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
             }
-        } );
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validateForm()) {
-                    Toast.makeText(FormProductActivity.this, "SE GUARDO LA INFORMACION", Toast.LENGTH_SHORT).show();
+                    String name = nameTextField.getEditText().getText().toString().trim();
+                    String description = descriptionTextField.getEditText().getText().toString().trim();
+                    String price = priceTextField.getEditText().getText().toString().trim();
+                    String imageUrl = imageUrlTextField.getEditText().getText().toString().trim();
+
+                    Product myProduct = new Product(name, description, Double.parseDouble(price), imageUrl);
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Products").add(myProduct).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(FormProductActivity.this, "SE GUARDO LA INFORMACION", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else{
+                                Toast.makeText(FormProductActivity.this, "ERROR DE SERVIDOR", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+
                 }
             }
         });

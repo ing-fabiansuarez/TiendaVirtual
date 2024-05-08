@@ -27,6 +27,11 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
         this.onItemClickListener = null;
     }
 
+    public void setListadoObjetos(ArrayList<Product> listadoObjetos) {
+        this.listadoObjetos = listadoObjetos;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
