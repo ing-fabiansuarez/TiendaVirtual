@@ -3,10 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/add_product"
-        android:title="Agregar Producto"
+        android:title="@string/agregar_product_o"
         app:showAsAction="never" />
     <item
         android:id="@+id/item_category"
-        android:title="Categories"
+        android:title="@string/categories"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/log_out"
+        android:title="@string/cerrar_sesi_n"
         app:showAsAction="never" />
 </menu>

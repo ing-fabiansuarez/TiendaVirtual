@@ -67,4 +67,8 @@
     <string name="text_cancel">Cancelar</string>
     <string name="txt_create">Crear</string>
     <string name="agregar">Agregar</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="iniciar_sesi_n">Iniciar Sesióón</string>
+    <string name="agregar_product_o">Agregar Productóo</string>
+    <string name="cerrar_sesi_n">Cerrar Sesión</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,14 +26,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ArrayList<SlideModel> imageList = new ArrayList<>();
+    private ImageSlider imageSlider;
     private Toolbar topAppBar;
     private ImageView ivProfile;
     private ArrayList<Product> productsList = new ArrayList<>();
     private User userSession = new User();
+    private ImageView userImageProfil;
+
     private RecyclerView rvProducts;
 
-    private ArrayList<SlideModel> imageList = new ArrayList<>();
-    private ImageSlider imageSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loadFakeData();
+        userImageProfil = findViewById(R.id.iv_profile_home_user);
+        Picasso.get().load(userSession.getUrlImageProfil()).into(userImageProfil);
         rvProducts = findViewById(R.id.rv_products);
         imageSlider = findViewById(R.id.image_slider_home);
 
-        imageList.add(new SlideModel("https://bit.ly/2YoJ77H", "The animal population decreased by 58 percent in 42 years.",null));
-        imageList.add(new SlideModel("https://bit.ly/2BteuF2", "Elephants and tigers may become extinct.",null));
-        imageList.add(new SlideModel("https://bit.ly/3fLJf72", "And people do that.",null));
+        imageList.add(new SlideModel("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4FkmvIrIJoaTQ6AXoIIMV3OLcuii_vahisR2bR8UtKw&s" , ScaleTypes.FIT));
+        imageList.add(new SlideModel("https://www.movilexito.com/sites/default/files/2021-08/V3_Paqu_LP_Movil_Recibe50_770x315_030821.jpg", ScaleTypes.FIT));
+        imageList.add(new SlideModel("https://vtex-resources.s3.amazonaws.com/landings/2024/marzo/landing-dia-redondo/images/mobile/banner.jpg",  ScaleTypes.FIT));
+        imageList.add(new SlideModel("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4FkmvIrIJoaTQ6AXoIIMV3OLcuii_vahisR2bR8UtKw&s", "Aproveche .",null));
+        imageList.add(new SlideModel("https://www.movilexito.com/sites/default/files/2021-08/V3_Paqu_LP_Movil_Recibe50_770x315_030821.jpg", "Elephants and tigers may become extinct.",null));
+        imageList.add(new SlideModel("https://vtex-resources.s3.amazonaws.com/landings/2024/marzo/landing-dia-redondo/images/mobile/banner.jpg", "And people do that.",null));
         imageSlider.setImageList(imageList,ScaleTypes.FIT);
         AdapterProduct adapterProduct = new AdapterProduct(productsList);
         adapterProduct.setOnItemClickListener(new AdapterProduct.OnItemClickListener() {
@@ -80,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 }else if(item.getItemId() == R.id.item_category){
                     startActivity(new Intent(MainActivity.this, CategoryActivity.class));
                     return true;
+                }else if (item.getItemId() == R.id.log_out){
+                    cerrarSesion();
                 }
                 return false;
             }
@@ -90,9 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loadFakeData() {
-
-        userSession.setName("Fabian Suarez");
-        userSession.setUrlImageProfile("https://img.freepik.com/fotos-premium/retrato-hombre-negocios-expresion-cara-seria-fondo-estudio-espacio-copia-bengala-persona-corporativa-enfoque-pensamiento-duda-mirada-facial-dilema-o-concentracion_590464-84924.jpg");
 
         Product product1 = new Product("Laptop", "Potente laptop para trabajo y entretenimiento", 1200.0, "https://http2.mlstatic.com/D_NQ_NP_793921-MLM50274201387_062022-O.webp");
         Product product2 = new Product("Teléfono", "Teléfono inteligente de última generación", 800.0, "https://exitocol.vtexassets.com/arquivos/ids/19479809/Celular-TECNO-MOBILE-Tecno-Spark-10PRO-256-GB-Blanco-3371669_c.jpg?v=638275963829800000");
@@ -131,6 +138,31 @@ public class MainActivity extends AppCompatActivity {
         productsList.add(product4);
         productsList.add(product5);
 
+        //Cargue de informacion de session
+        userSession.setName("Fabian");
+        userSession.setEmail("fsuarez120@unab.edu.co");
+        userSession.setPassword("qazwsx");
+        userSession.setPhone("3229243184");
+        userSession.setUrlImageProfil("https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg");
 
     }
+
+
+    public void cerrarSesion() {
+        SharedPreferences miPreferencias = getSharedPreferences("tienda_app", MODE_PRIVATE);
+        SharedPreferences.Editor myEditor = miPreferencias.edit();
+        myEditor.clear();
+        myEditor.apply();
+
+        // Crear una nueva intención para iniciar la actividad de inicio de sesión
+        Intent intent = new Intent(this, LoginActivity.class);
+
+        // Agregar banderas para limpiar la pila de actividades y crear una nueva tarea
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        // Iniciar la actividad de inicio de sesión y cerrar la actividad actual
+        startActivity(intent);
+        finish();
+    }
+
 }

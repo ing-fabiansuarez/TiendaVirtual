@@ -1,5 +1,6 @@
 package com.fabiansuarez.tiendavirtual;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +15,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+
 public class FormCategoryActivity extends AppCompatActivity {
 
-    private Button btnOk;
+    private Button btnOk, btnColorPicker;
     private TextInputLayout nameTextField;
 
     @Override
@@ -25,6 +28,7 @@ public class FormCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form_category);
 
         btnOk = findViewById(R.id.btnOK);
+        btnColorPicker = findViewById(R.id.btn_color_new_category);
         nameTextField = findViewById(R.id.til_name_new_category);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +38,26 @@ public class FormCategoryActivity extends AppCompatActivity {
                 }
             }
         });
+        btnColorPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AmbilWarnaDialog dialog = new AmbilWarnaDialog(FormCategoryActivity.this, Color.BLUE, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                    @Override
+                    public void onOk(AmbilWarnaDialog dialog, int color) {
+                        // color is the color selected by the user.
+                    }
+
+                    @Override
+                    public void onCancel(AmbilWarnaDialog dialog) {
+                        // cancel was selected by the user
+                    }
+                });
+                dialog.show();
+
+            }
+        });
     }
+
 
     private boolean validateForm() {
         nameTextField.setError(null);

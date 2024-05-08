@@ -28,8 +28,8 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:src="@drawable/ic_launcher_background"
-                app:civ_border_width="1dp"
-                app:civ_border_color="#FF000000"/>
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="1dp" />
 
 
             <LinearLayout
@@ -68,10 +68,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginStart="24dp"
-                    app:cardBackgroundColor="@color/material_dynamic_primary50"
                     app:cardCornerRadius="15dp" />
             </LinearLayout>
-
 
 
         </LinearLayout>

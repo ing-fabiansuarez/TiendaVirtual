@@ -25,8 +25,18 @@
                 android:elevation="0dp"
                 app:layout_collapseMode="pin"
                 app:menu="@menu/top_app_bar"
-                app:navigationIcon="@drawable/ic_account"
-                app:title="Bienvenido!" />
+                app:title="Bienvenido!" >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile_home_user"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="2dp"
+                    android:layout_margin="4dp"/>
+
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
